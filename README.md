@@ -1,11 +1,24 @@
 # Dirty Merge PoC
 
-Linux kernel local privilege escalation via `skb_gro_receive()` SKBFL_SHARED_FRAG non-propagation (GRO layer flag stripping).
+Linux内核 `skb_gro_receive()` 函数在处理GRO时，未能正确传播 `SKBFL_SHARED_FRAG` 标志，导致页缓存污染。攻击者可通过此漏洞破坏只读文件的页缓存，进而实现本地提权。
 
-## Build
+
+## 自行编译
 
 ```bash
 gcc -O2 -Wall -Wextra -static -o dirty_merge gro_fragnesia.c
+```
+
+
+## 补充
+
+编译报错或运行报错缺失ethtool时，可以尝试使用静态编译版本（x86）
+
+```bash
+export PATH=$(pwd):$PATH
+chmod +x ethtool
+chmod +x dirty_merge
+./dirty_merge
 ```
 
 ## Requirements
