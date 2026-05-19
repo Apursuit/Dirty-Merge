@@ -3,9 +3,11 @@
 Linux内核 `skb_gro_receive()` 函数在处理GRO时，未能正确传播 `SKBFL_SHARED_FRAG` 标志，导致页缓存污染。攻击者可通过此漏洞破坏只读文件的页缓存，进而实现本地提权。
 
 
-## 自行编译
+## 编译
 
 ```bash
+git clone https://github.com/Apursuit/Dirty-Merge.git
+cd Dirty-Merge
 gcc -O2 -Wall -Wextra -static -o dirty_merge gro_fragnesia.c
 ```
 
